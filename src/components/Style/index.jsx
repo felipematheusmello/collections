@@ -6,4 +6,7 @@ export const CharactersCard = styled(Card)`
   background-color: #14cfc9;
 `;
 
-export const CardDescription = styled(Card.Meta);
+export const CardDescription = styled(Card.Meta)`
+  text-align: center;
+  color: #ccc1;
+`;

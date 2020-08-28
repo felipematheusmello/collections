@@ -9,8 +9,10 @@
     "antd": "^4.6.1",
     "axios": "^0.20.0",
     "components": "^0.1.0",
+    "framer-motion": "^2.6.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "styled": "^1.0.0"
   },
