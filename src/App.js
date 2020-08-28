@@ -1,14 +1,7 @@
 import React from "react";
 
-import AdventureTime from "./components/RickAndMorthy";
-
 function App() {
-  return (
-    <div>
-      Oi
-      <AdventureTime />
-    </div>
-  );
+  return <div>Oi</div>;
 }
 
 export default App;
