@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "antd";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-const CharacterList = ({ characters, onSelect, header }) => {
+const CharacterList = ({ characters, onSelect = () => {}, header }) => {
   return (
     <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>

@@ -1,7 +1,7 @@
 import React from "react";
 import CharacterList from "../../characterList";
 
-const Home = ({ characters, setCharacters }) => {
+const Collection = ({ characters, setCharacters }) => {
   const handleOnSelect = ({ name }) => {
     setCharacters(characters.filter((character) => character.name !== name));
   };
@@ -15,4 +15,4 @@ const Home = ({ characters, setCharacters }) => {
   );
 };
 
-export default Home;
+export default Collection;
