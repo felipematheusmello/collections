@@ -1,7 +1,14 @@
-import React from "react";
-
+import React, { useState } from "react";
+import RickAndMorty from "./components/characters/rickAndMorthy";
 function App() {
-  return <div>Oi</div>;
+  const [rickAndMorty, setRickAndMorty] = useState([]);
+  const [pokemon, setPokemon] = useState([]);
+  return (
+    <div>
+      Oi
+      <RickAndMorty />
+    </div>
+  );
 }
 
 export default App;
