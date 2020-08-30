@@ -6,7 +6,10 @@ function App() {
   return (
     <div>
       Oi
-      <RickAndMorty />
+      <RickAndMorty
+        setRickAndMorty={setRickAndMorty}
+        RickAndMorty={rickAndMorty}
+      />
     </div>
   );
 }
