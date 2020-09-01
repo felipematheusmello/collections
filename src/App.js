@@ -94,7 +94,6 @@ const TopBar = styled.div`
 const Body = styled.div`
   margin-top: 38px;
   font-size: 20px;
-  background-color: rgb(18, 20, 21);
 `;
 
 const StyledLink = styled(Link)`

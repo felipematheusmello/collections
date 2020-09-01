@@ -14,6 +14,12 @@ const PokemonList = ({ characters, setCharacters }) => {
   const [next, setNext] = useState("");
   const history = useHistory();
 
+  const EndPointConstructor = (pagination) => {
+    return `https://pokeapi.co/api/v2/pokemon?offset=
+      ${20 * (pagination - 1)} 
+      "&limit=20`;
+  };
+
   const handleOnSelect = (newCharacter = []) => {
     console.log(characters);
     if (characters) {
@@ -43,13 +49,11 @@ const PokemonList = ({ characters, setCharacters }) => {
 
   useEffect(() => {
     if (page < 1) return history.push("/characters/1");
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon?offset=${pages}&limit=20`)
-      .then(({ data }) => {
-        const { results, next } = data;
-        setPokemon(results || []);
-        setNext(next);
-      });
+    axios.get(EndPointConstructor(page)).then(({ data }) => {
+      const { results, next } = data;
+      setPokemon(results || []);
+      setNext(next);
+    });
   }, [setPokemon, page, history]);
 
   return (
@@ -62,9 +66,8 @@ const PokemonList = ({ characters, setCharacters }) => {
             onClick={() => {
               if (pages < 0) {
                 setPages(0);
-              } else {
-                setPages(pages - 20);
               }
+              setPages(page - 20);
             }}
             to={`/characters/${page - 1}`}
           >
@@ -73,7 +76,7 @@ const PokemonList = ({ characters, setCharacters }) => {
           {page}
           <Link
             onClick={() => {
-              if (next) setPages(pages + 20);
+              if (next) setPages(page + 20);
             }}
             to={`/characters/${parseInt(page) + 1}`}
           >
