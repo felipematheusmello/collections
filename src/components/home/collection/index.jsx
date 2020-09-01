@@ -1,9 +1,12 @@
 import { UsergroupDeleteOutlined } from "@ant-design/icons";
-import { notification } from "antd";
-import React from "react";
+import { notification, Input } from "antd";
+import React, { useState } from "react";
 
 import CharacterList from "../../characterList/index";
+import filter from "../../helper";
 const Collection = ({ characters, setCharacters }) => {
+  const [inputsSelected, setInputsSelected] = useState(undefined);
+  const { Search } = Input;
   const handleOnSelect = ({ name }) => {
     notification.success({
       key: name,
@@ -12,15 +15,26 @@ const Collection = ({ characters, setCharacters }) => {
       icon: <UsergroupDeleteOutlined style={{ color: "green" }} />,
     });
     setCharacters(characters.filter((character) => character.name !== name));
-    localStorage.setItem("characterList", characters);
   };
+  localStorage.setItem("characterList", JSON.stringify(characters));
 
   return (
-    <CharacterList
-      onSelect={handleOnSelect}
-      header="Sua coleção de Cards!"
-      characters={characters}
-    />
+    <>
+      <CharacterList
+        onSelect={handleOnSelect}
+        header="Sua coleção de Cards!"
+        characters={
+          inputsSelected && inputsSelected !== "all"
+            ? filter(characters, inputsSelected)
+            : characters
+        }
+      />
+      <Search
+        placeholder="input search text"
+        onSearch={(value) => setInputsSelected(value)}
+        style={{ width: 200 }}
+      />
+    </>
   );
 };
 

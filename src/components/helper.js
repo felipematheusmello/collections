@@ -12,3 +12,8 @@ export const getPokemonID = (url) => {
 };
 
 export { Collection };
+
+const filter = (filtered, filter) => {
+  return filtered.filter((char) => char.type === filter);
+};
+export default filter;

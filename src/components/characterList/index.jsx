@@ -5,14 +5,7 @@ import styled from "styled-components";
 
 import { getPokemonID } from "../helper";
 
-const CharacterList = ({
-  characters,
-  setTypeChart,
-  header,
-  typeChart,
-  filter,
-  onSelect = () => {},
-}) => {
+const CharacterList = ({ characters, header, onSelect = () => {} }) => {
   return (
     <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>
