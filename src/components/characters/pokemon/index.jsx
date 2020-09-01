@@ -62,26 +62,9 @@ const PokemonList = ({ characters, setCharacters }) => {
       characters={pokemon}
       header={
         <StyledControl>
-          <Link
-            onClick={() => {
-              if (pages < 0) {
-                setPages(0);
-              }
-              setPages(page - 20);
-            }}
-            to={`/characters/${page - 1}`}
-          >
-            {" < "}Anterior
-          </Link>
+          <Link to={`/characters/${page - 1}`}>{" < "}Anterior</Link>
           {page}
-          <Link
-            onClick={() => {
-              if (next) setPages(page + 20);
-            }}
-            to={`/characters/${parseInt(page) + 1}`}
-          >
-            Próximo
-          </Link>
+          <Link to={`/characters/${parseInt(page) + 1}`}>Próximo</Link>
         </StyledControl>
       }
     />
