@@ -21,29 +21,27 @@ const PokemonList = ({ characters, setCharacters }) => {
   };
 
   const handleOnSelect = (newCharacter = []) => {
-    if (characters) {
-      const alreadyAdd = characters.some(
-        ({ name }) => name === newCharacter.name
-      );
+    const alreadyAdd = characters.some(
+      ({ name }) => name === newCharacter.name
+    );
 
-      if (alreadyAdd) {
-        return notification.error({
-          key: newCharacter.name,
-          message: "Erro",
-          description: `Pokemon ${newCharacter.name} já foi adicionado!`,
-          icon: <FrownOutlined style={{ color: "green" }} />,
-        });
-      }
-
-      notification.success({
+    if (alreadyAdd) {
+      return notification.error({
         key: newCharacter.name,
-        message: "Boa!",
-        description: `Pokemon ${newCharacter.name} adicionado!`,
-        icon: <UsergroupAddOutlined style={{ color: "green" }} />,
+        message: "Erro",
+        description: `Pokemon ${newCharacter.name} já foi adicionado!`,
+        icon: <FrownOutlined style={{ color: "green" }} />,
       });
-
-      setCharacters([...characters, newCharacter]);
     }
+
+    notification.success({
+      key: newCharacter.name,
+      message: "Boa!",
+      description: `Pokemon ${newCharacter.name} adicionado!`,
+      icon: <UsergroupAddOutlined style={{ color: "green" }} />,
+    });
+
+    setCharacters([...characters, newCharacter]);
   };
 
   useEffect(() => {
