@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaExchangeAlt } from "react-icons/fa";
 import { IoIosImages, IoIosPie } from "react-icons/io";
 import { MdCollections } from "react-icons/md";
@@ -13,13 +13,12 @@ import Chart from "./components/Routes/chart";
 import { Collection } from "./components/helper";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
+  let retrievedObject = localStorage.getItem("characterList");
+  retrievedObject = ("retrievedObject: ", JSON.parse(retrievedObject));
+  const [characters, setCharacters] = useState(retrievedObject);
   const [list, setList] = useState("rickList");
   const [typeChart, setTypeChart] = useState([{}]);
 
-  let retrievedObject = localStorage.getItem("characterList");
-  retrievedObject = ("retrievedObject: ", JSON.parse(retrievedObject));
-  console.log(retrievedObject);
   const changeList = () => {
     if (list === "rickList") {
       setList("pokeList");
@@ -29,7 +28,7 @@ function App() {
       console.log(list);
     }
   };
-
+  localStorage.setItem("characterList", JSON.stringify(characters));
   return (
     <div className="App">
       <TopBar>
