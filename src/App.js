@@ -7,10 +7,10 @@ import { MdCollections } from "react-icons/md";
 import { Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import PokemonList from "./components/Routes/characters/pokemon";
-import RickAndMorty from "./components/Routes/characters/rickAndMorty";
-import Chart from "./components/Routes/chart";
 import { Collection } from "./components/helper";
+import PokemonList from "./components/routes/pages/characters/pokemon";
+import RickAndMorty from "./components/routes/pages/characters/rickAndMorty";
+import Chart from "./components/routes/pages/chart";
 
 function App() {
   let retrievedObject = localStorage.getItem("characterList");

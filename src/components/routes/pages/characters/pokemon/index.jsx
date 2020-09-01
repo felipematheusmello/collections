@@ -2,21 +2,23 @@ import { UsergroupAddOutlined, FrownOutlined } from "@ant-design/icons";
 import { notification } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import CharacterList from "../../../characterList";
-const RickAndMorty = ({
-  setCharacters,
-  characters,
-  setTypeChart,
-  typeChart,
-}) => {
-  const [rickAndMorty, setRickAndMorty] = useState([]);
+import CharacterList from "../../../../characterList";
+
+const PokemonList = ({ characters, setCharacters }) => {
+  const [pokemon, setPokemon] = useState([]);
   const { page } = useParams();
   const history = useHistory();
 
-  const handleOnSelect = (newCharacter) => {
+  const EndPointConstructor = (pagination) => {
+    return `https://pokeapi.co/api/v2/pokemon?offset=
+      ${20 * (pagination - 1)} 
+      "&limit=20`;
+  };
+
+  const handleOnSelect = (newCharacter = []) => {
     const alreadyAdd = characters.some(
       ({ name }) => name === newCharacter.name
     );
@@ -25,7 +27,7 @@ const RickAndMorty = ({
       return notification.error({
         key: newCharacter.name,
         message: "Erro",
-        description: `Personagem ${newCharacter.name} já foi adicionado!`,
+        description: `Pokemon ${newCharacter.name} já foi adicionado!`,
         icon: <FrownOutlined style={{ color: "green" }} />,
       });
     }
@@ -33,50 +35,39 @@ const RickAndMorty = ({
     notification.success({
       key: newCharacter.name,
       message: "Boa!",
-      description: `Personagem ${newCharacter.name} adicionado!`,
+      description: `Pokemon ${newCharacter.name} adicionado!`,
       icon: <UsergroupAddOutlined style={{ color: "green" }} />,
     });
 
     setCharacters([...characters, newCharacter]);
   };
-  const openNotification = (message, description, fig) => {
-    notification.open({
-      message: { message },
-      description: { description },
-      icon: { fig },
-    });
-  };
 
   useEffect(() => {
     if (page < 1) return history.push("/characters/1");
-    axios
-      .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
-      .then(({ data }) => {
-        data.results.map((rick) => {
-          rick.type = "Rick and Morthy";
-        });
-        setRickAndMorty(data.results || []);
+    axios.get(EndPointConstructor(page)).then(({ data }) => {
+      const { results } = data;
+      results.map((pokemon) => {
+        pokemon.type = "Pokemon";
       });
-  }, [history, page]);
-
+      setPokemon(results || []);
+    });
+  }, [setPokemon, page, history]);
   return (
     <CharacterList
-      setTypeChart={setTypeChart}
-      typeChart={typeChart}
       onSelect={handleOnSelect}
-      characters={rickAndMorty}
+      characters={pokemon}
       header={
         <StyledControl>
-          <Link to={`/characters/${page - 1}`}> {" < "}Anterior</Link>
+          <Link to={`/characters/${page - 1}`}>{" < "}Anterior</Link>
           {page}
-          <Link to={`/characters/${parseInt(page) + 1}`}>Próximo{" > "}</Link>
+          <Link to={`/characters/${parseInt(page) + 1}`}>Próximo</Link>
         </StyledControl>
       }
     />
   );
 };
 
-export default RickAndMorty;
+export default PokemonList;
 
 const StyledControl = styled.div`
   padding: 10px;
