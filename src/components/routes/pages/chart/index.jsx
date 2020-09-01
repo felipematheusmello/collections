@@ -18,7 +18,7 @@ const Chart = ({ characters = [] }) => {
     ],
   };
 
-  return <Pie data={data} />;
+  return <Pie data={characters !== null && data} />;
 };
 
 export default Chart;
