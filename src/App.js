@@ -35,7 +35,7 @@ function App() {
             </StyledLink>
           </motion.div>
           <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
-            <StyledLink to="/rick-and-morty/1">
+            <StyledLink to="/characters/1">
               <BsPeopleFill />
             </StyledLink>
           </motion.div>
@@ -47,7 +47,7 @@ function App() {
           Change List
         </Button>
         <Switch>
-          <Route path="/rick-and-morty/:page">
+          <Route path="/characters/:page">
             {list === "rickList" && (
               <>
                 <RickAndMorty
@@ -94,6 +94,7 @@ const TopBar = styled.div`
 const Body = styled.div`
   margin-top: 38px;
   font-size: 20px;
+  background-color: rgb(18, 20, 21);
 `;
 
 const StyledLink = styled(Link)`

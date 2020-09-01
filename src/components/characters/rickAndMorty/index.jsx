@@ -43,7 +43,7 @@ const RickAndMorty = ({ setCharacters, characters }) => {
   };
 
   useEffect(() => {
-    if (page < 1) return history.push("/rick-and-morty/1");
+    if (page < 1) return history.push("/characters/1");
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then(({ data }) => {
@@ -58,11 +58,9 @@ const RickAndMorty = ({ setCharacters, characters }) => {
       characters={rickAndMorty}
       header={
         <StyledControl>
-          <Link to={`/rick-and-morty/${page - 1}`}> {" < "}Anterior</Link>
+          <Link to={`/characters/${page - 1}`}> {" < "}Anterior</Link>
           {page}
-          <Link to={`/rick-and-morty/${parseInt(page) + 1}`}>
-            Próximo{" > "}
-          </Link>
+          <Link to={`/characters/${parseInt(page) + 1}`}>Próximo{" > "}</Link>
         </StyledControl>
       }
     />

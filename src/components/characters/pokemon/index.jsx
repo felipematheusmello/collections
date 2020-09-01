@@ -2,7 +2,7 @@ import { UsergroupAddOutlined, FrownOutlined } from "@ant-design/icons";
 import { notification } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import CharacterList from "../../characterList";
@@ -10,6 +10,10 @@ import CharacterList from "../../characterList";
 const PokemonList = ({ characters, setCharacters }) => {
   const [pokemon, setPokemon] = useState([]);
   const { page } = useParams();
+  const [pages, setPages] = useState(0);
+  const [next, setNext] = useState("");
+  const history = useHistory();
+
   const handleOnSelect = (newCharacter = []) => {
     console.log(characters);
     if (characters) {
@@ -38,13 +42,15 @@ const PokemonList = ({ characters, setCharacters }) => {
   };
 
   useEffect(() => {
+    if (page < 1) return history.push("/characters/1");
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+      .get(`https://pokeapi.co/api/v2/pokemon?offset=${pages}&limit=20`)
       .then(({ data }) => {
-        const { results } = data;
+        const { results, next } = data;
         setPokemon(results || []);
+        setNext(next);
       });
-  }, [setPokemon]);
+  }, [setPokemon, page, history]);
 
   return (
     <CharacterList
@@ -52,10 +58,26 @@ const PokemonList = ({ characters, setCharacters }) => {
       characters={pokemon}
       header={
         <StyledControl>
-          <Link to={`/rick-and-morty/${page - 1}`}> {" < "}Anterior</Link>
+          <Link
+            onClick={() => {
+              if (pages < 0) {
+                setPages(0);
+              } else {
+                setPages(pages - 20);
+              }
+            }}
+            to={`/characters/${page - 1}`}
+          >
+            {" < "}Anterior
+          </Link>
           {page}
-          <Link to={`/rick-and-morty/${parseInt(page) + 1}`}>
-            Próximo{" > "}
+          <Link
+            onClick={() => {
+              if (next) setPages(pages + 20);
+            }}
+            to={`/characters/${parseInt(page) + 1}`}
+          >
+            Próximo
           </Link>
         </StyledControl>
       }
