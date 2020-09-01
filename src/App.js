@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaExchangeAlt } from "react-icons/fa";
 import { IoIosImages, IoIosPie } from "react-icons/io";
 import { MdCollections } from "react-icons/md";

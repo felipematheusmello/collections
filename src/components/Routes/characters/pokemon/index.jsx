@@ -10,8 +10,6 @@ import CharacterList from "../../../characterList";
 const PokemonList = ({ characters, setCharacters }) => {
   const [pokemon, setPokemon] = useState([]);
   const { page } = useParams();
-  const [pages, setPages] = useState(0);
-  const [next, setNext] = useState("");
   const history = useHistory();
 
   const EndPointConstructor = (pagination) => {
@@ -47,12 +45,11 @@ const PokemonList = ({ characters, setCharacters }) => {
   useEffect(() => {
     if (page < 1) return history.push("/characters/1");
     axios.get(EndPointConstructor(page)).then(({ data }) => {
-      const { results, next } = data;
+      const { results } = data;
       results.map((pokemon) => {
         pokemon.type = "Pokemon";
       });
       setPokemon(results || []);
-      setNext(next);
     });
   }, [setPokemon, page, history]);
   return (

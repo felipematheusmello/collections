@@ -1,5 +1,5 @@
 import { UsergroupDeleteOutlined } from "@ant-design/icons";
-import { notification, Input, Radio } from "antd";
+import { notification, Input } from "antd";
 import React, { useState } from "react";
 
 import CharacterList from "../../characterList/index";
