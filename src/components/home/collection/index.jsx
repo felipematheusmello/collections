@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import CharacterList from "../../characterList/index";
 import filterSearch from "../../helper";
-const Collection = ({ characters, setCharacters }) => {
+const Collection = ({ characters = [], setCharacters = [] }) => {
   const [inputsSelected, setInputsSelected] = useState(undefined);
   const { Search } = Input;
 
