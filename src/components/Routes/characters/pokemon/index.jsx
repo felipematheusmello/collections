@@ -55,7 +55,6 @@ const PokemonList = ({ characters, setCharacters }) => {
       setNext(next);
     });
   }, [setPokemon, page, history]);
-  console.log(pokemon);
   return (
     <CharacterList
       onSelect={handleOnSelect}

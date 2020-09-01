@@ -22,10 +22,8 @@ function App() {
   const changeList = () => {
     if (list === "rickList") {
       setList("pokeList");
-      console.log(list);
     } else {
       setList("rickList");
-      console.log(list);
     }
   };
   localStorage.setItem("characterList", JSON.stringify(characters));
