@@ -1,33 +1,69 @@
+import { Button } from "antd";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { BsPeopleFill } from "react-icons/bs";
+import { MdCollections } from "react-icons/md";
+import { Switch, Route, Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+
+import PokemonList from "./components/characters/pokemon";
 import RickAndMorty from "./components/characters/rickAndMorty";
 import Collection from "./components/home/collection";
-import { MdCollections } from "react-icons/md";
-import { BsPeopleFill } from "react-icons/bs";
-import styled from "styled-components";
 
 function App() {
   const [characters, setCharacters] = useState([]);
-  const [pokemon, setPokemon] = useState([]);
+  const [list, setList] = useState("rickList");
+
+  const history = useHistory();
+  const changeList = () => {
+    if (list === "rickList") {
+      setList("pokeList");
+      console.log(list);
+    } else {
+      setList("rickList");
+      console.log(list);
+    }
+  };
 
   return (
     <div className="App">
       <TopBar>
-        <StyledLink to="/">
-          <MdCollections />
-        </StyledLink>
-        <StyledLink to="/rick-and-morty/1">
-          <BsPeopleFill />
-        </StyledLink>
+        <TobBarLinks>
+          <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+            <StyledLink to="/">
+              <MdCollections />
+            </StyledLink>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+            <StyledLink to="/rick-and-morty/1">
+              <BsPeopleFill />
+            </StyledLink>
+          </motion.div>
+        </TobBarLinks>
       </TopBar>
 
       <Body>
+        <Button type="primary" onClick={changeList}>
+          Change List
+        </Button>
         <Switch>
           <Route path="/rick-and-morty/:page">
-            <RickAndMorty
-              setCharacters={setCharacters}
-              characters={characters}
-            />
+            {list === "rickList" && (
+              <>
+                <RickAndMorty
+                  setCharacters={setCharacters}
+                  characters={characters}
+                />
+              </>
+            )}
+            {list === "pokeList" && (
+              <>
+                <PokemonList
+                  characters={characters}
+                  setCharacters={setCharacters}
+                />
+              </>
+            )}
           </Route>
           <Route path="/">
             <Collection characters={characters} setCharacters={setCharacters} />
@@ -40,6 +76,12 @@ function App() {
 
 export default App;
 
+const TobBarLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const TopBar = styled.div`
   background-color: white;
   width: 100%;
@@ -51,6 +93,7 @@ const TopBar = styled.div`
 
 const Body = styled.div`
   margin-top: 38px;
+  font-size: 20px;
 `;
 
 const StyledLink = styled(Link)`

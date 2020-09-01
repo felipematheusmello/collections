@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, Link, useHistory } from "react-router-dom";
-import CharacterList from "../../characterList";
-import styled from "styled-components";
+import { UsergroupAddOutlined, FrownOutlined } from "@ant-design/icons";
 import { notification } from "antd";
-import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams, Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
 
+import CharacterList from "../../characterList";
 const RickAndMorty = ({ setCharacters, characters }) => {
   const [rickAndMorty, setRickAndMorty] = useState([]);
   const { page } = useParams();
   const history = useHistory();
-
-  const openNotification = (message, description, fig) => {
-    notification.open({
-      message: { message },
-      description: { description },
-      icon: { fig },
-    });
-  };
 
   const handleOnSelect = (newCharacter) => {
     const alreadyAdd = characters.some(
@@ -28,7 +20,7 @@ const RickAndMorty = ({ setCharacters, characters }) => {
       return notification.error({
         key: newCharacter.name,
         message: "Erro",
-        description: "Personagem já foi adicionado!",
+        description: `Personagem ${newCharacter.name} já foi adicionado!`,
         icon: <FrownOutlined style={{ color: "green" }} />,
       });
     }
@@ -36,19 +28,29 @@ const RickAndMorty = ({ setCharacters, characters }) => {
     notification.success({
       key: newCharacter.name,
       message: "Boa!",
-      description: "Personagem adicionado!",
-      icon: <SmileOutlined style={{ color: "green" }} />,
+      description: `Personagem ${newCharacter.name} adicionado!`,
+      icon: <UsergroupAddOutlined style={{ color: "green" }} />,
     });
 
     setCharacters([...characters, newCharacter]);
+  };
+  const openNotification = (message, description, fig) => {
+    notification.open({
+      message: { message },
+      description: { description },
+      icon: { fig },
+    });
   };
 
   useEffect(() => {
     if (page < 1) return history.push("/rick-and-morty/1");
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
-      .then(({ data }) => setRickAndMorty(data.results || []));
-  }, [history, page, setCharacters]);
+      .then(({ data }) => {
+        console.log(data.results);
+        setRickAndMorty(data.results || []);
+      });
+  }, [history, page]);
 
   return (
     <CharacterList

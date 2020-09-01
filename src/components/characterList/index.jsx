@@ -1,25 +1,35 @@
-import React from "react";
 import { Card } from "antd";
 import { motion } from "framer-motion";
+import React from "react";
 import styled from "styled-components";
-const CharacterList = ({ characters, onSelect = () => {}, header }) => {
+
+import { getPokemonID } from "../helper";
+
+const CharacterList = ({ characters, header, onSelect = () => {} }) => {
   return (
     <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>
       <StyledList>
         {characters &&
-          characters.map(({ name, image, species }, key) => (
-            <StyledCard
-              key={key}
-              hoverable
-              onClick={() => {
-                onSelect({ name, image, species });
-              }}
-              cover={<img alt="example" src={image} />}
-            >
-              <Card.Meta title={name} description={species} />
-            </StyledCard>
-          ))}
+          characters.map(({ name, image, species, url }, key) => {
+            console.log(characters);
+            const id = getPokemonID(url);
+            return (
+              <StyledCard
+                key={key}
+                hoverable
+                onClick={() => {
+                  onSelect({ name, image, species, url });
+                }}
+                cover={<img alt="character" src={image ? image : id} />}
+              >
+                <Card.Meta
+                  title={name}
+                  description={species ? species : "Pokemon"}
+                />
+              </StyledCard>
+            );
+          })}
       </StyledList>
     </StyledCharacter>
   );
