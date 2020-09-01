@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import CharacterList from "../../characterList";
+import CharacterList from "../../../characterList";
 const RickAndMorty = ({ setCharacters, characters }) => {
   const [rickAndMorty, setRickAndMorty] = useState([]);
   const { page } = useParams();
@@ -54,6 +54,7 @@ const RickAndMorty = ({ setCharacters, characters }) => {
 
   return (
     <CharacterList
+      type="Rick and Morthy"
       onSelect={handleOnSelect}
       characters={rickAndMorty}
       header={

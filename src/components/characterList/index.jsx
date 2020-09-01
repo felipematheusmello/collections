@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { getPokemonID } from "../helper";
 
-const CharacterList = ({ characters, header, onSelect = () => {} }) => {
+const CharacterList = ({ characters, type, header, onSelect = () => {} }) => {
   return (
     <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>
@@ -23,10 +23,7 @@ const CharacterList = ({ characters, header, onSelect = () => {} }) => {
                 }}
                 cover={<img alt="character" src={image ? image : id} />}
               >
-                <Card.Meta
-                  title={name}
-                  description={species ? species : "Pokemon"}
-                />
+                <Card.Meta title={name} description={type} />
               </StyledCard>
             );
           })}

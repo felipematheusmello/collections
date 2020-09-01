@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import CharacterList from "../../characterList";
+import CharacterList from "../../../characterList";
 
 const PokemonList = ({ characters, setCharacters }) => {
   const [pokemon, setPokemon] = useState([]);
@@ -58,6 +58,7 @@ const PokemonList = ({ characters, setCharacters }) => {
 
   return (
     <CharacterList
+      type="Pokemon"
       onSelect={handleOnSelect}
       characters={pokemon}
       header={
