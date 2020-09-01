@@ -15,9 +15,9 @@ import Chart from "./components/routes/pages/chart";
 function App() {
   let retrievedObject = localStorage.getItem("characterList");
   retrievedObject = ("retrievedObject: ", JSON.parse(retrievedObject));
-  const [characters, setCharacters] = useState(
-    retrievedObject !== null ? retrievedObject : ""
-  );
+  const myCollection = JSON.parse(retrievedObject) ? retrievedObject : [];
+
+  const [characters, setCharacters] = useState(myCollection);
   const [list, setList] = useState("rickList");
   const [typeChart, setTypeChart] = useState([{}]);
 
