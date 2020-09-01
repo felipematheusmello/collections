@@ -16,7 +16,7 @@ const RickAndMorty = ({
   const { page } = useParams();
   const history = useHistory();
 
-  const handleOnSelect = (newCharacter) => {
+  const handleOnSelect = (newCharacter = []) => {
     const alreadyAdd = characters.some(
       ({ name }) => name === newCharacter.name
     );

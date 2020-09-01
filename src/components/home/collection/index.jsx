@@ -3,7 +3,7 @@ import { notification, Input } from "antd";
 import React, { useState } from "react";
 
 import CharacterList from "../../characterList/index";
-import filter from "../../helper";
+import filterSearch from "../../helper";
 const Collection = ({ characters, setCharacters }) => {
   const [inputsSelected, setInputsSelected] = useState(undefined);
   const { Search } = Input;
@@ -31,7 +31,7 @@ const Collection = ({ characters, setCharacters }) => {
         header="Sua coleção de Cards!"
         characters={
           inputsSelected && inputsSelected !== "all"
-            ? filter(characters, inputsSelected)
+            ? filterSearch(characters, inputsSelected)
             : characters
         }
       />
