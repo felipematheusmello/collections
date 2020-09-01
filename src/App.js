@@ -6,15 +6,15 @@ import { IoIosImages, IoIosPie } from "react-icons/io";
 import { MdCollections } from "react-icons/md";
 import { Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
-import Chart from "./component/";
+
 import PokemonList from "./components/Routes/characters/pokemon";
 import RickAndMorty from "./components/Routes/characters/rickAndMorty";
-import Collection from "./components/home/collection";
-
+import Chart from "./components/Routes/chart";
+import { Collection } from "./components/helper";
 function App() {
   const [characters, setCharacters] = useState([]);
   const [list, setList] = useState("rickList");
-
+  const [typeChart, setTypeChart] = useState([{}]);
   const changeList = () => {
     if (list === "rickList") {
       setList("pokeList");
@@ -54,11 +54,16 @@ function App() {
           </StyleButton>
         </motion.div>
         <Switch>
+          <Route path="/chart">
+            <Chart characters={characters} />
+          </Route>
           <Route path="/characters/:page">
             {list === "rickList" && (
               <>
                 <RickAndMorty
                   setCharacters={setCharacters}
+                  setTypeChart={setTypeChart}
+                  typeChart={typeChart}
                   characters={characters}
                 />
               </>
@@ -67,15 +72,16 @@ function App() {
               <>
                 <PokemonList
                   characters={characters}
+                  setTypeChart={setTypeChart}
                   setCharacters={setCharacters}
                 />
               </>
             )}
           </Route>
-          <Route path="/">
+
+          <Route exact path="/">
             <Collection characters={characters} setCharacters={setCharacters} />
           </Route>
-          <Route path="./chart"></Route>
         </Switch>
       </Body>
     </div>

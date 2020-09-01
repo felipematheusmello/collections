@@ -6,7 +6,12 @@ import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import CharacterList from "../../../characterList";
-const RickAndMorty = ({ setCharacters, characters }) => {
+const RickAndMorty = ({
+  setCharacters,
+  characters,
+  setTypeChart,
+  typeChart,
+}) => {
   const [rickAndMorty, setRickAndMorty] = useState([]);
   const { page } = useParams();
   const history = useHistory();
@@ -47,14 +52,17 @@ const RickAndMorty = ({ setCharacters, characters }) => {
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then(({ data }) => {
-        console.log(data.results);
+        data.results.map((rick) => {
+          rick.type = "Rick and Morthy";
+        });
         setRickAndMorty(data.results || []);
       });
   }, [history, page]);
 
   return (
     <CharacterList
-      type="Rick and Morthy"
+      setTypeChart={setTypeChart}
+      typeChart={typeChart}
       onSelect={handleOnSelect}
       characters={rickAndMorty}
       header={

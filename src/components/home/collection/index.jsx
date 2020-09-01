@@ -2,7 +2,7 @@ import { UsergroupDeleteOutlined } from "@ant-design/icons";
 import { notification } from "antd";
 import React from "react";
 
-import CharacterList from "../../characterList";
+import CharacterList from "../../characterList/index";
 const Collection = ({ characters, setCharacters }) => {
   const handleOnSelect = ({ name }) => {
     notification.success({
@@ -12,6 +12,7 @@ const Collection = ({ characters, setCharacters }) => {
       icon: <UsergroupDeleteOutlined style={{ color: "green" }} />,
     });
     setCharacters(characters.filter((character) => character.name !== name));
+    localStorage.setItem("characterList", characters);
   };
 
   return (

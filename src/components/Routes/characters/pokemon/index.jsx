@@ -21,7 +21,6 @@ const PokemonList = ({ characters, setCharacters }) => {
   };
 
   const handleOnSelect = (newCharacter = []) => {
-    console.log(characters);
     if (characters) {
       const alreadyAdd = characters.some(
         ({ name }) => name === newCharacter.name
@@ -51,14 +50,16 @@ const PokemonList = ({ characters, setCharacters }) => {
     if (page < 1) return history.push("/characters/1");
     axios.get(EndPointConstructor(page)).then(({ data }) => {
       const { results, next } = data;
+      results.map((pokemon) => {
+        pokemon.type = "Pokemon";
+      });
       setPokemon(results || []);
       setNext(next);
     });
   }, [setPokemon, page, history]);
-
+  console.log(pokemon);
   return (
     <CharacterList
-      type="Pokemon"
       onSelect={handleOnSelect}
       characters={pokemon}
       header={

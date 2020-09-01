@@ -1,25 +1,31 @@
-import { Card } from "antd";
+import { Card, Button } from "antd";
 import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 
 import { getPokemonID } from "../helper";
 
-const CharacterList = ({ characters, type, header, onSelect = () => {} }) => {
+const CharacterList = ({
+  characters,
+  setTypeChart,
+  header,
+  typeChart,
+  filter,
+  onSelect = () => {},
+}) => {
   return (
     <StyledCharacter initial={{ scale: 0.1 }} animate={{ scale: 1.0 }}>
       <StyledHeader>{header}</StyledHeader>
       <StyledList>
         {characters &&
-          characters.map(({ name, image, species, url }, key) => {
-            console.log(characters);
+          characters.map(({ name, image, url, type }, key) => {
             const id = getPokemonID(url);
             return (
               <StyledCard
                 key={key}
                 hoverable
                 onClick={() => {
-                  onSelect({ name, image, species, url });
+                  onSelect({ name, image, type, url });
                 }}
                 cover={<img alt="character" src={image ? image : id} />}
               >
