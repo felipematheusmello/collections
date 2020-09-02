@@ -14,10 +14,10 @@ import Chart from "./components/routes/pages/chart";
 
 function App() {
   let retrievedObject = localStorage.getItem("characterList");
-  retrievedObject = JSON.parse(retrievedObject);
-  const myCollection = JSON.parse(retrievedObject) ? retrievedObject : [];
-
-  const [characters, setCharacters] = useState(myCollection);
+  retrievedObject = ("retrievedObject: ", JSON.parse(retrievedObject));
+  const [characters, setCharacters] = useState(
+    retrievedObject !== null ? retrievedObject : []
+  );
   const [list, setList] = useState("rickList");
   const [typeChart, setTypeChart] = useState([{}]);
 

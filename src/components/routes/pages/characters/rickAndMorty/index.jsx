@@ -53,7 +53,7 @@ const RickAndMorty = ({
       .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then(({ data }) => {
         data.results.map((rick) => {
-          rick.type = "Rick and Morthy";
+          rick.type = "Rick and Morty";
         });
         setRickAndMorty(data.results || []);
       });
