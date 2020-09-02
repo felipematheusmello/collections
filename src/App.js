@@ -13,11 +13,8 @@ import RickAndMorty from "./components/routes/pages/characters/rickAndMorty";
 import Chart from "./components/routes/pages/chart";
 
 function App() {
-  retrievedObject = localStorage.setItem(
-    "retrievedObject: ",
-    JSON.parse(retrievedObject)
-  );
   let retrievedObject = localStorage.getItem("characterList");
+  retrievedObject = JSON.parse(retrievedObject);
   const myCollection = JSON.parse(retrievedObject) ? retrievedObject : [];
 
   const [characters, setCharacters] = useState(myCollection);
